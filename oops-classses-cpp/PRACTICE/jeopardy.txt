@@ -1,0 +1,141 @@
+Q1. struct , class
+
+Q2. Describe a class: ex.cpp
+ans: A class is a was for a user to create a concrete type. We often think of it as a 'blueprint', and 
+    create 'instance objects' from that blueprint. 
+    Classes consist of attributes (member variables) and actions (member functions) that utilize the class blueprint
+
+Q3: What is a copy constructor?
+ans: A copy constructor is a special member function that is called when an instance of an object is created from 
+    another object of the same type.
+    Syntax:
+        class-name(const class-name&){//define}
+        class-name(const class-name&) = default;
+        class-name(const class-name&) = delete;
+
+Q4. What happens if you don't provide Constructor, Destructor, or copy constructor when creating a class? ex.cpp
+ans: C++ compiler provides defaults for you. (Doing a trivial initialization of your member variables)
+
+Q5. What is a move constructor?
+ans: A special member function that is called when an object is initialized from 'rvalue'. When creating a new object.
+    this effectively transfers ownership to the new object.
+    Syntax:
+        class-name(class-name&&){//define}
+        class-name(class-name&&) = default;
+        class-name(class-name&&) = delete;
+
+Q6. What are the three special member functions in the Rule-of-3?
+ans: Constructor, Destructor, Copy constructor, (or)(copy-assignment operator)
+
+Q7. In what scenario do you have to provide a custom copy constructor? ex.cpp
+ans: When performing 'deep copy'. Thus, anytime you have a member variable that is not trivially copyable, you need to
+    perform the deep copy.
+    'trivially' copyable mtlb nothing that's primitive type, int char floats etc, basically whenever you allocate memory
+    to the heap.
+
+Q8. What are the 5 special member functions in the Rule-of-5?
+ans: Constructor, Destructor, Copy constructor (and copy-assignment operator), move constructor, move-assignment operator
+
+Q9. Curly or not to curly?
+ans: {} to call constructor and prevent narrowing. If a constructor has an initializer list, 
+    this will initialize the initializer list.
+     () Calls the constructor with parameters, and does not prevent narrowing.
+
+Q10. 3 uses of const? const correctness?
+ans:1. Regular locally scoped variable that is to be constant.
+    const int pi = 3.14f;
+    2. immutable parameter
+    foo(const T& param);
+    3. read-only access of member variables in a member function;
+    member_func() const {//define}
+
+Q11. difference b/w struct and class?
+ans: structs: Default privacy leves = Public
+     classes: Default privacy leves = Private
+
+    class A {};
+    struct B : /* public */ A {};
+
+    struct A {};
+    class B : /* private */ A {};
+
+Q12. Why do we create seperate .hpp files and .cpp files for user-defined types?
+ans: The .hpp file serves as an interface with the class declaration,
+    member function declarations, and member variables.
+    The .cpp is the compiled file with the implementation. We seperate
+    them out to 'hide code', 'improve compilation'(usually, because for build systems and 
+    physical organization of the project), and the .hpp also serves as a high level 
+    overview of our code.
+
+Q13. What the fuck is RAII??
+ans: Resource Acquisition is initialization 
+    it's a programming technique which binds the life cycle of a resource that must be acquired before use (allocated
+    heap memory, thread of execution, open socket, open file, locked mutex, disk space, database connection - anything that
+    exists in limited supply) to the lifetime of an object.
+    Resource should be acquired by the constructor and destructor should free that resource.
+
+Q14. What is a 'POD' type?
+ans: 'plain old datatype' or 'piece of data'
+    In C++ again, there is no distinction, but stylistically you may encounter developers delineate between using classes and
+    using structs as POD types.
+    In C structs did not have member functions (methods), they were just a composite type with member variables.
+
+Q15. What is operator overloading and name some specific operators you can overload.
+ans: allows you to define operators (+ - <= << new delete[]) tracking memory, custom operators
+
+Q16. inheritance : kind of relationship?
+ans: 'is-a' - inheritance
+    'has-a' - composition
+
+Q17. In what order are teh constructors and destructors called when creating a new 'Golden'?
+ans: Dog Constructor
+     Golden Constructor
+     Golden Destructor
+     Dog Destructor
+
+Q18. What is a virtual function?
+ans: Virtual is the C++ way of supporting dynamic dispatch during runtime polymorphism. This is necessary to ensure
+    that the correct member function is called from the instantiated object. 
+    virtual function specifier: specifies that a non-static member function is virtual and supports dynamic dispatch.
+    It may only appear in the decl-specifier-seq of the initial declaration of a non static member function (i.e. when it is
+    declared in the class definition).
+    Base* der = new Derived;
+
+Q19. What is a vtable?
+ans: The vtable contains entries in a class for the each virtual function call. One vtable per class is created and shared 
+    by all instances of classes (static)
+    basically, per class there is one pointer to a vtable, that's storing which member functions to call, to call the right 
+    function for each of these classes here.
+
+Q20. What is Virtual Inheritance?
+ans: Virtual Inheritance ensures that the derived class only contains one of the base classes if it appears multiple times.
+    Virtual Base Class:
+        For each distinct base class that is specified virtual, the most derived object contains only one base class subobject
+        of that type, even if the class appears many times in the inheritance hierarchy (as long as it is inherited virtual every time).
+
+Q21. Describe a strategy from copies of objects being made?
+ans: Delete the copy constructor or (if pre c++11) make the copy constructor private.
+
+Q22. Why should you use a member initializer list?  // different from "initializer_list"
+ans: Using a member initializer list can avoid a copy, as we can directly construct the member variable inside the object. 
+    great for performance.
+
+Q23. What is a friend class?
+ans: Similar to friend functions, a friend class gets access to all (including private) member variables of a class.
+    Friend Declaration: appears in a class body and grants a function or another class access to private and protected members 
+    of the class where the friend declaration appears.
+
+Q24. Why would you make a class's destructor virtual? ex.cpp
+ans: In general, we always make a base class vitual, to ensure that the base classes destructor will be called.
+    When we have a derived class that is going to use inheritance-based polymorphism, adding 'virtual' ensures that the base 
+    classes destructor is also called. 
+
+Q25. How to make an abstract class in cpp? ex.cpp
+ans: We do not truly have 'abstract classes' in C++, but we can make 'pure virtual functions' that must be implemented from subclass.
+
+
+Q-JEOPARDY! Why is 'this' not a reference?
+ans: Because 'this' was introduced to C++ (really into C with classes) before references were added. Also, I chose "this" to follow 
+    Simula usage, rather than the (later) Smalltalk use of "self".
+                                                                                                       - Bjarne Sauerkraut
+

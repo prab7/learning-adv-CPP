@@ -1,0 +1,4 @@
+Classes vs Structs
+
+Default Access for Classes = private
+Default Access for Structs = public
