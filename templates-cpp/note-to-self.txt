@@ -1,0 +1,1 @@
+run all of these programs in cpp insights
