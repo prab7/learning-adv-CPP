@@ -15,10 +15,22 @@ struct Point3f {
     mutable float w;
 };
 
-// cppref example
+// cppref example - concurrency
 class ThreadsafeCounter {
-    mutable std::mutex
-}
+
+    mutable std::mutex m;  // M&M rule
+    int data = 0;
+
+public:
+    int get() const {
+        std::lock_guard<std::mutex> lk(m);
+        return data;
+    }
+    void inc(){
+        std::lock_guard<std::mutex> lk(m);
+        data++;
+    }
+};
 
 int main(){
 
