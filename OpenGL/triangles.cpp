@@ -163,7 +163,7 @@ void InitializeProgram(void){
 
     if(gGraphicsApplicationWindow == nullptr) {
         std::cout << "SDL_Window was not able to be created" << std::endl;
-        exit(1);
+        exit(1); 
     }
 
     gOpenGLContext = SDL_GL_CreateContext(gGraphicsApplicationWindow);
