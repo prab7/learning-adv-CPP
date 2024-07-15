@@ -1,3 +1,6 @@
+OpenGL 4.5 API Reference Card - Khronos
+--------------------------------------------------------------------------------------------------------------------------------------
+
 Graphics Rendering Pipeline
 
 
@@ -85,3 +88,75 @@ OpenGL-Init ---> Version
 
 - sexy
 - cool 
+- planar
+- triangle
+
+3 vertices, 3 edges, 1 face 
+
+
+OpenGL-Objects:
+
+- Vertex Array Objects (VAO)
+    - How to Access your VBO    
+
+- Vertex Buffer Object (VBO)
+    - Actual data
+    - Array of data
+
+             (x2, y2, z2)
+ (x1, y1, z1) ---> △ <--- (x3, y3, z3)
+
+    glGenBuffer(args, &myObject)
+    glBindBuffer()
+    glBufferData() ---------------------------> Populates it with data
+
+VBO1 =   [ x1|y1|z1 | x2|y2|z2 | x3|y3|z3 ] (position of 3 vertices (floats))
+
+glGenVertexArrays(howmany, &myVAO)
+glBindVertexArray(&myVAO) 
+
+        VAO1
+---------------------+
+- Attributes = postion, etc (attrs of the triangle in this case)
+basically, how do i walk through VBO1
+
+
+
+        VAO
+---------------------+          VBO 
+    Attr1--------------------->[ x, y, z,
+    Attr1--------------------->  r, g, b ]
+
+
+
+[ x1|y1|z1 | x2|y2|z2 | x3|y3|z3 ]
+
+// Bind is OpenGL-speak for "select"
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+this is what goes on in a GPU ->
+
+Vertex Specification : (VAOs and VBOs) specifying vertices std::vector<float> vertices = {x, y, z, ...}; then we ship things over to a VBO  
+                    and then setting attributes with VAO
+    ↓
+*Vertex Shader       : positioning of vertices
+    ↓
+Tessellation (optional)
+    ↓
+Geometry Shader (optional)
+    ↓
+Vertex Post-Processing
+    ↓
+Primitive Assembly
+    ↓
+Rasterization
+    ↓
+*Fragment Shader     : executes once per fragment
+    ↓
+Per-Sample Operations
+
+
+
+*absolute must-haves
