@@ -200,7 +200,7 @@ void Input(){
         }
     }
 }
- 
+
 void PreDraw(){
 
     glDisable(GL_DEPTH_TEST);
