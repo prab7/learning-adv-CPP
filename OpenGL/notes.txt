@@ -1,0 +1,87 @@
+Graphics Rendering Pipeline
+
+
+Vertex Specification
+    ↓
+Vertex Shader
+    ↓
+Tessellation (optional)
+    ↓
+Geometry Shader (optional)
+    ↓
+Vertex Post-Processing
+    ↓
+Primitive Assembly
+    ↓
+Rasterization
+    ↓
+Fragment Shader
+    ↓
+Per-Sample Operations
+
+
+
+Rendering pipeline: A vertex/line/triangle (primitive)'s journey from 3D data to your 2D screen
+
+1. Vertex Specification - specify a vertex or a series of vertices, really our geometry data.
+
+Shader: Programmable part of our pipeline
+    - Feature of Modern OpenGL that we can write programs on our GPU to control the graphics pipeline
+
+2. Vertex Shader - Execute on each vertex, Positioning that vertex.
+
+3. Tessellation - subdivision of geometry, to add more detail
+
+4. Geometry Shader - generate more geometry from a point to make, let's say, a quad. maybe create an explosion effect.
+
+5. Vertex Post-Processing
+
+6. Primitive Assembly - Assembling the final geometry
+
+7. Rasterization - screen is a grid of pixels, we approximate all the shapes by filling in the respective pixels. 
+               depth test to check which shape gets drawn in front of the other.
+
+8. Fragment Shader - Executes once on each fragment (pixels) *determine the final color of each of the pixels that we rasterize.
+
+9. Per-Sample Operations - Depth testing, Scissor testing, reflections shadows etc. 
+
+
+Takeaway - 
+Our data in OpenGL, everytime we do a draw-call, has to go through this pipeline in an ordered manner
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+SDL2 => Simple DirectMedia Layer 
+
+1. render a window -> Hold/Display the output from an OpenGL Context (large object that holds onto OpenGL)
+
+OpenGL Context : A context that stores all the states associated with this instance of OpenGL. It represents the default 'framebuffer' that holds
+                onto the rendering commands
+
+2. Handling i/o 
+3. Setup Subsystems Sound/Networking/Images
+4. threading Support
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Graphics Application build stages:
+
+1. Initialize our scene
+2. Main loop
+    - Input 
+    - Updates
+    - Render/Pre-render
+3. CleanUp function
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+OpenGL-Init ---> Version
+             --> Context
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+## TRIANGLES ##
+
+- sexy
+- cool 
