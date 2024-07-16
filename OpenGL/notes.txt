@@ -1,4 +1,10 @@
 OpenGL 4.5 API Reference Card - Khronos
+docs.gl
+learnopengl.com
+sudo apt-get install opengl-4-man-doc
+
+Mesa source code
+webglfundamentals.org
 --------------------------------------------------------------------------------------------------------------------------------------
 
 Graphics Rendering Pipeline
@@ -160,3 +166,24 @@ Per-Sample Operations
 
 
 *absolute must-haves
+--------------------------------------------------------------------------------------------------------------------------------------
+
+OpenGL Objects, c-based objects
+OpenGL Context (Mesa)
+State Machine 
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+I wanna be able to compile my CPU program, and at Runtime load the shader code.
+not to embedd them directly inside my program
+
+this was done by adding the Shaders library and not having to recompile the whole source code to change the shader at runtime.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+        VAO
+---------------------+              VBO1 
+    postion ---------------------> [ x1, y1, z1, x2, y2, z2, x3, y3, z3 ]
+-                                   VBO2
+    color   ---------------------> [ r, g, b ]
+-
