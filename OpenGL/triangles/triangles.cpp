@@ -1,7 +1,8 @@
+// Third Party Libraries
 #include <SDL2/SDL.h>
-#include "./include/glad/glad.h"
-//g++ -std=c++20 codesetup.cpp ./src/glad.c -I./include/ -o prog -lSDL2 -ldl && ./prog 
-//#include <glad/glad.h> //but this is better
+#include "../include/glad/glad.h" //#include <glad/glad.h>
+
+// C++ Standard Template Library (STL)
 #include <iostream>
 #include <vector>
 

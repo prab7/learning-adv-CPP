@@ -1,7 +1,10 @@
+/**
+ * compilation on linux:
+ * g++ -std=c++20 codesetup.cpp ../src/glad.c -I../include/ -o prog -lSDL2 -ldl
+ */
 #include <SDL2/SDL.h>
-#include "./include/glad/glad.h" // this gets be intellisense, just include -I./include/ for glad to work
+#include "../include/glad/glad.h" // this gets be intellisense, just include -I./include/ for glad to work
 
-//g++ -std=c++20 codesetup.cpp ./src/glad.c -I./include/ -o prog -lSDL2 -ldl && ./prog 
 //#include <glad/glad.h> //but this is better
 
 #include <iostream>

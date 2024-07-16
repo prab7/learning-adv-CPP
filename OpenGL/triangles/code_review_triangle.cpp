@@ -1,11 +1,11 @@
 /*
 Compilation on Linux:
-g++ -std=c++20 *file_name*.cpp ./src/glad.c -I./include/ -o prog -lSDL2 -ldl
+g++ -std=c++20 *file_name*.cpp ../src/glad.c -I../include/ -o prog -lSDL2 -ldl
 */
 
 // Third Party Libraries
 #include <SDL2/SDL.h>
-#include "./include/glad/glad.h" //#include <glad/glad.h>
+#include "../include/glad/glad.h" //#include <glad/glad.h>
 
 // C++ Standard Template Library (STL)
 #include <iostream>
