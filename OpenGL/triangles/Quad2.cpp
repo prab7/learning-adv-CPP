@@ -37,14 +37,40 @@ GLuint IBO = 0;
 
 bool quit = false;
 
+/*⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ Error Handling Routines ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄*/
+
+// sort of like OpenGL 3.3 way, not that modern
+
+// No other errors are recorded until glGetError is called
+static void GLClearAllErrors(){
+    while(glGetError() != GL_NO_ERROR){
+        
+    }
+}
+
+// returns true if we have an error
+static bool GLCheckErrorStatus(const char* function, int line){
+    while(GLenum error = glGetError()){
+        std::cout << "function: "<< function 
+                  << "\tLine: " << line
+                  << "\tOpenGL Error:  " << error << std::endl;;
+        return true;
+    }
+    return false;
+}
+
+#define GLCheck(x) GLClearAllErrors(); x; GLCheckErrorStatus(#x, __LINE__); 
+
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Error Handling Routines ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
 
 /*⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ DEBUGG ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄*/
-void debugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
-                  const GLchar *message, const void *userParam)
-{
-    std::string message_str(message, length);
-    std::cout << message_str << '\n';
-}
+// void debugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
+//                   const GLchar *message, const void *userParam)
+// {
+//     std::string message_str(message, length);
+//     std::cout << message_str << '\n';
+// }
 
 void GetOpenGLVersionInfo(){
     std::cout << "Vendor           : " << glGetString(GL_VENDOR) << std::endl;
@@ -101,11 +127,11 @@ void Init(){
     GetOpenGLVersionInfo();
 
     // Debugger Setup
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(debugMessage, NULL);
+    // glEnable(GL_DEBUG_OUTPUT);
+    // glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    // glDebugMessageCallback(debugMessage, NULL);
 
-    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, GL_TRUE);
+    // glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, GL_TRUE);
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DEBUGG ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 
@@ -302,11 +328,13 @@ void PreDraw(){
 
 void Draw(){
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // glGetError MACRO
+
+    GLCheck(glBindVertexArray(VAO));
+    GLCheck(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 
     //glDrawArrays(GL_TRIANGLES, 0, 6);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 );
+    GLCheck(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 ));//GL_INT was the error
     
     glUseProgram(0);
 

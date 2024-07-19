@@ -199,8 +199,10 @@ glFrontFace(GLenum mode);
 mode: GL_CW GL_CCW, init=GL_CCW 
 
 --------------------------------------------------------------------------------------------------------------------------------------
-
+## Index Buffers 
 Index Buffer Object / Element Buffer Object
+
+uses GL_ELEMENT_ARRAY_BUFFER enumeration, different from GL_ARRAY_BUFFER
 
          0       1       2       3
 VBO = [V0 C0 | V1 C1 | V2 C2 | V3 C3]
@@ -209,5 +211,25 @@ IBO = [2, 0, 1, 3, 2 ,1]
         +---+    +---+
     triangle1    triangle2
 both respect the same Winding Order 
+    GL_ELEMENT_ARRAY_BUFFER
+
+--------------------------------------------------------------------------------------------------------------------------------------
+## Debugging 
+
+glError();
+
+I had already setup a debugger earlier, but in Quad2.cpp theh /*Error Handling Routine*/ is from Mike's Tutorials
+using glGetError(); returns value of error flag. Each detectable error gets assigned a code and a symbolic name
+No other errors are recorded until glGetError is called.
+the error code is returned and the flag is reset to GL_NO_ERROR
+if a call to glGetError returns GL_NO_ERROR there has been no detectable error since last call to glGetError, 
+or since GL was initialized. 
+
+GL_NO_ERROR
+GL_INVALID_ENUM
+GL_INVALID_VALUE
+GL_INVALID_OPERATION
+GL_INVALID_FRAMEBUFFER_OPERATION
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
