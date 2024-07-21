@@ -1,6 +1,7 @@
 // Third Party Libraries
 #include <SDL2/SDL.h>
-#include "../include/glad/glad.h" //#include <glad/glad.h>
+//#include "../include/glad/glad.h" 
+#include <glad/glad.h>
 
 // C++ Standard Template Library (STL)
 #include <iostream>
