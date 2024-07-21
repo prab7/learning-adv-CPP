@@ -5,6 +5,8 @@ sudo apt-get install opengl-4-man-doc
 
 Mesa source code
 webglfundamentals.org
+
+Note: move include/ src/ into Glad/ and mv that into venders/
 --------------------------------------------------------------------------------------------------------------------------------------
 
 Graphics Rendering Pipeline
@@ -230,6 +232,38 @@ GL_INVALID_ENUM
 GL_INVALID_VALUE
 GL_INVALID_OPERATION
 GL_INVALID_FRAMEBUFFER_OPERATION
+etc...
 
+--------------------------------------------------------------------------------------------------------------------------------------
+## GLM => OpenGL Mathematics 
+
+    'local coordinates'
+    w=1 => position (point)
+    glm::vec4 vertex(1.0f, 5.0f, 1.0f, 1.0f);
+
+    position + position = w=2 => nonsensical
+    position - position = w=0 => direction (vector)
+    point1 - point2 = direction of pt1 to pt2 global vector
+    vector - vector = w=0 => vector (positional)
+
+    OpenGL is Column Major
+
+    model matrix for our geometry
+    glm::mat4 model{1.0f}; // Identity
+
+    Perform some transformations (i.e. moving us in the world)
+    We are now in 'world space'
+
+    +-       -+   +- -+   +- -+
+    | 1 0 0 0 |   | 1 |   | 1 |  new location
+    | 0 1 0 0 | * | 5 | = | 5 |  (world space)
+    | 0 0 1 0 |   | 1 |   | 1 |
+    | 0 0 0 1 |   | 1 |   | 1 |
+    +-       -+   +- -+   +- -+
+
+    Scaling Matrix
+    model = glm::scale(glm::mat4(1.0f),glm::vec3(2.0f,2.0f,2.0f));
+
+    learnopengl.com for scaling matrix, translation matrix and rotation matrices
 
 --------------------------------------------------------------------------------------------------------------------------------------
