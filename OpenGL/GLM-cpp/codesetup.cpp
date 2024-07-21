@@ -1,6 +1,6 @@
 /*
 Compilation on Linux:
-> export run=="g++ -std=c++20 codesetup.cpp ./../Thirdparty/GLAD/src/*.c -I./../Thirdparty/GLAD/include/ -I./../Thirdparty/glm-master -o prog -lSDL2 -ldl"
+> export runthis="g++ -std=c++20 codesetup.cpp ./../Thirdparty/GLAD/src/*.c -I./../Thirdparty/GLAD/include/ -I./../Thirdparty/glm-master -o prog -lSDL2 -ldl"
 > $runthis 
 > ./prog
 */
