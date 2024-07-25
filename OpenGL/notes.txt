@@ -292,5 +292,8 @@ GPU Memory
   const
 
 
-
 --------------------------------------------------------------------------------------------------------------------------------------
+## WORLD SPACE 
+
+local space vectors * transformations matrix = world space vectors
+
