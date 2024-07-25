@@ -44,6 +44,7 @@ GLuint IBO = 0;
 // At a minimum, every Modern OpenGL program needs a vertex and a fragment shader
 
 float g_uOffset = 0.0f;
+float g_uOffsetti = 0.0f;
 
 /*⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ DEBUGG ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄*/
 void debugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
@@ -306,6 +307,14 @@ void Input(){
         g_uOffset -= 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
     }
+    if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_A]){
+        g_uOffsetti += 0.01f;
+        std::cout << "g_uOffset: " << g_uOffset << std::endl;
+    }
+    if (state[SDL_SCANCODE_LEFT] or state[SDL_SCANCODE_D]){
+        g_uOffsetti -= 0.01f;
+        std::cout << "g_uOffset: " << g_uOffset << std::endl;
+    }
 }
 void PreDraw(){
 
@@ -319,7 +328,7 @@ void PreDraw(){
 
     glUseProgram(shader_pipeline_program);
     
-    glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, g_uOffset, 0.0f));
+    glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(g_uOffsetti, g_uOffset, 0.0f));
 
     // Retrieve our location of our Model Matrix
     GLint u_ModelMatrixlocation = glGetUniformLocation(shader_pipeline_program, "u_ModelMatrix");
