@@ -1,6 +1,6 @@
 /*
 Compilation on Linux:
-export runthis="g++ -std=c++20 *filename*.cpp ./Thirdparty/GLAD/src/*.c -I./Thirdparty/GLAD/include/ -I./Thirdparty/glm-master -o prog -lSDL2 -ldl"
+export runthis="g++ -std=c++20 *filename*.cpp ../Thirdparty/GLAD/src/*.c -I../Thirdparty/GLAD/include/ -I../Thirdparty/glm-master -o prog -lSDL2 -ldl"
 $runthis
 ./prog
 */
@@ -41,6 +41,7 @@ GLuint IBO = 0;
 // At a minimum, every Modern OpenGL program needs a vertex and a fragment shader
 
 float g_uOffset = 0.0f;
+float g_uOffsetti = 0.0f;
 
 /*⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ DEBUGG ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄*/
 void debugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
@@ -273,8 +274,8 @@ GLuint CreateShaderProgram(const std::string& vss, const std::string& fss){
 }
 
 void GenGrapicsPipeline(){
-    const std::string& vss = LoadShaderSourceString("./Shaders/vert3.glsl");
-    const std::string& fss = LoadShaderSourceString("./Shaders/frag3.glsl");
+    const std::string& vss = LoadShaderSourceString("../Shaders/vert3.glsl");
+    const std::string& fss = LoadShaderSourceString("../Shaders/frag3.glsl");
     shader_pipeline_program = CreateShaderProgram(vss, fss);
 }
 
@@ -294,13 +295,21 @@ void Input(){
     // Retrieve keybord state
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-    if (state[SDL_SCANCODE_UP]){
+    if (state[SDL_SCANCODE_UP] or state[SDL_SCANCODE_W]){
         g_uOffset += 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
     }
-    if (state[SDL_SCANCODE_DOWN]){
+    if (state[SDL_SCANCODE_DOWN] or state[SDL_SCANCODE_S]){
         g_uOffset -= 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
+    }
+    if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_D]){
+        g_uOffsetti += 0.01f;
+        std::cout << "g_uOffsetti: " << g_uOffset << std::endl;
+    }
+    if (state[SDL_SCANCODE_LEFT] or state[SDL_SCANCODE_A]){
+        g_uOffsetti -= 0.01f;
+        std::cout << "g_uOffsetti: " << g_uOffset << std::endl;
     }
 }
 void PreDraw(){
@@ -314,10 +323,17 @@ void PreDraw(){
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shader_pipeline_program);
-    GLint location = glGetUniformLocation(shader_pipeline_program, "u_Offset");
+    GLint location[2];
+    location[0] = glGetUniformLocation(shader_pipeline_program, "u_Offset");
+    location[1] = glGetUniformLocation(shader_pipeline_program, "u_Offsetti");
 
-    if(location >= 0){
-        glUniform1f(location, g_uOffset); 
+    if(location[0] >= 0){
+        glUniform1f(location[0], g_uOffset); 
+    } else {
+        std::cout << "Could not find u_Offset, maybe a mispelling?\n" << std::endl;
+    }
+    if(location[0] >= 0){
+        glUniform1f(location[1], g_uOffsetti); 
     } else {
         std::cout << "Could not find u_Offset, maybe a mispelling?\n" << std::endl;
     }
