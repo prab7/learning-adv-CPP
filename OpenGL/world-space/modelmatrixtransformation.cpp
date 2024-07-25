@@ -307,13 +307,13 @@ void Input(){
         g_uOffset -= 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
     }
-    if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_A]){
-        g_uOffsetti += 0.01f;
-        std::cout << "g_uOffset: " << g_uOffset << std::endl;
-    }
     if (state[SDL_SCANCODE_LEFT] or state[SDL_SCANCODE_D]){
+        g_uOffsetti += 0.01f;
+        std::cout << "g_uOffsetti: " << g_uOffsetti << std::endl;
+    }
+    if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_A]){
         g_uOffsetti -= 0.01f;
-        std::cout << "g_uOffset: " << g_uOffset << std::endl;
+        std::cout << "g_uOffsetti: " << g_uOffsetti << std::endl;
     }
 }
 void PreDraw(){
