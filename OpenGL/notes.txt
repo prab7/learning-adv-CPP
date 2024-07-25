@@ -267,3 +267,30 @@ etc...
     learnopengl.com for scaling matrix, translation matrix and rotation matrices
 
 --------------------------------------------------------------------------------------------------------------------------------------
+## GLSL
+
+uniform variable
+- global variable on the GPU 
+- shared in our all shaders vert/frag/geomtry
+- "const" in vert/frag shader
+- we pass value from our CPU to -> our GPU 
+
+uniform variables we dont initialize on the GPU, sometimes you can but generally not
+with uniform, we are gonna do this constantly to update the values
+
+
+GPU Memory
+----------
+  VBO 
++ ---- + 
+|xyzrgb| --> Vertex --> fragment   
++ ---- +     Shader      Shader
+.               ^           ^
++--------+      |           |
+|u_Offset|------+-----------+
++--------+
+  const
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
