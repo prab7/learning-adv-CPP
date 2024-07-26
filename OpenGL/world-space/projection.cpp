@@ -365,6 +365,8 @@ void PreDraw(){
     // scaling
               model = glm::scale(model, glm::vec3(g_uScale, g_uScale, g_uScale));
 
+    // ORDER MATTERS!! 
+
     // Retrieve our location of our Model Matrix
     GLint u_ModelMatrixlocation = glGetUniformLocation(shader_pipeline_program, "u_ModelMatrix");
 
@@ -401,7 +403,6 @@ void PreDraw(){
 void Draw(){
  
     glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     //glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
