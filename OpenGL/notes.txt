@@ -295,5 +295,9 @@ GPU Memory
 --------------------------------------------------------------------------------------------------------------------------------------
 ## WORLD SPACE 
 
-local space vectors * transformations matrix = world space vectors
+Perspective matrix * View matrix * transformations matrix * local space vectors= world space vectors
 
+Perspective          Camera        translate/scale/rotate    local               world
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
