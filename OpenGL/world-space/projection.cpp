@@ -46,6 +46,7 @@ GLuint IBO = 0;
 float g_uOffset = 0.0f;
 float g_uOffsetti = 0.0f;
 float g_uOffsetz = 0.0f;
+float g_uRotate = 0.0f;
 
 /*⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ DEBUGG ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄*/
 void debugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
@@ -308,6 +309,7 @@ void Input(){
         g_uOffset += 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
     }
+
     if (state[SDL_SCANCODE_DOWN] and state[SDL_SCANCODE_LSHIFT]){
         g_uOffsetz -= 0.01f;
         std::cout << "g_uOffsetz: " << g_uOffsetz << std::endl;
@@ -316,11 +318,22 @@ void Input(){
         g_uOffset -= 0.01f;
         std::cout << "g_uOffset: " << g_uOffset << std::endl;
     }
-    if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_D]){
+
+
+    if (state[SDL_SCANCODE_RIGHT] and state[SDL_SCANCODE_LALT]){
+        g_uRotate += 0.5f;
+        std::cout << "g_uRotate: " << g_uRotate << std::endl;
+    }
+    else if (state[SDL_SCANCODE_RIGHT] or state[SDL_SCANCODE_D]){
         g_uOffsetti += 0.01f;
         std::cout << "g_uOffsetti: " << g_uOffsetti << std::endl;
     }
-    if (state[SDL_SCANCODE_LEFT] or state[SDL_SCANCODE_A]){
+
+    if (state[SDL_SCANCODE_LEFT] and state[SDL_SCANCODE_LALT]){
+        g_uRotate -= 0.5f;
+        std::cout << "g_uRotate: " << g_uRotate << std::endl;
+    }
+    else if (state[SDL_SCANCODE_LEFT] or state[SDL_SCANCODE_A]){
         g_uOffsetti -= 0.01f;
         std::cout << "g_uOffsetti: " << g_uOffsetti << std::endl;
     }
@@ -337,19 +350,26 @@ void PreDraw(){
 
     // Use our Shader 
     glUseProgram(shader_pipeline_program);
+
+
     
     // Model tranformation by translating our object into world space 
-    glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(g_uOffsetti, g_uOffset, g_uOffsetz));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(g_uOffsetti, g_uOffset, g_uOffsetz));
+
+    // rotation
+    model           = glm::rotate(model, glm::radians(g_uRotate), glm::vec3(0.0f, 1.0f, 0.0f));
 
     // Retrieve our location of our Model Matrix
     GLint u_ModelMatrixlocation = glGetUniformLocation(shader_pipeline_program, "u_ModelMatrix");
 
     if(u_ModelMatrixlocation >= 0){
-        glUniformMatrix4fv(u_ModelMatrixlocation, 1, GL_FALSE, &translate[0][0]); 
+        glUniformMatrix4fv(u_ModelMatrixlocation, 1, GL_FALSE, &model[0][0]); 
     } else {
         std::cout << "Could not find u_ModelMatrix, maybe a mispelling?\n" << std::endl;
         exit(EXIT_FAILURE);
     }
+
+
 
     // Projection matrix (in perspective)
     glm::mat4 perspective = glm::perspective(
@@ -368,6 +388,7 @@ void PreDraw(){
         std::cout << "Could not find u_Perspective, maybe a mispelling?\n" << std::endl;
         exit(EXIT_FAILURE);
     }
+
 
 }; 
 
