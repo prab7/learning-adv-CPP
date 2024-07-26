@@ -299,5 +299,16 @@ Perspective matrix * View matrix * transformations matrix * local space vectors=
 
 Perspective          Camera        translate/scale/rotate    local               world
 
+# Order Matters! (think of it as concatenation)
+
+translate
+rotate
+scale 
+
+rotate
+translate 
+scale
+
+both have different purposes, find it out.
 
 --------------------------------------------------------------------------------------------------------------------------------------
