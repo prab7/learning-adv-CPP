@@ -5,6 +5,7 @@ in vec3 v_vertexColors;
 out vec4 color;
 
 uniform mat4 u_ModelMatrix; // uniform model matrix
+uniform mat4 u_ViewMatrix;  // uniform View matrix 
 uniform mat4 u_Perspective; // uniform perpective matrix
 
 // Entry point of program

@@ -351,11 +351,34 @@ xyz xzy yxz yzx zyx zxy
 in each case, the gimble lock occurs when the middle axis is rotated too far (90 degrees)
 
 
-# 3D softwares always use Euler rotations, you can switch it to local view but behind the scenes the rotation happens in the original 
+- 3D softwares always use Euler rotations, you can switch it to local view but behind the scenes the rotation happens in the original 
 euler rotations.
 
-# best order ? YXZ (for cameras, usually)
+- best order ? YXZ (for cameras, usually)
 
 # mitigating gimbal lock is usually done by using Quaternions
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+## View Space ("Camera Space")
+
+.        model matrix        "view matrix"
+local Space  --->   world Space  --->  View Space (viewing through a Camera)
+.            r/t/s              
+
+this can be done by using the glm::lookAt matrix
+
+detail::tmat4x4<T, P> glm::lookAt(detail::tvec3<T, P> const & eye,
+.                                 detail::tvec3<T, P> const & center,
+.                                 detail::tvec3<T, P> const & up
+.                                )
+
+Build a look at view matrix
+
+- eye:    Position of Camera
+- center: Position where the camera is looking at 
+- up:     Normalized up vector, how the camera is oriented.
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
