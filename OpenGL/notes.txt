@@ -312,3 +312,50 @@ scale
 both have different purposes, find it out.
 
 --------------------------------------------------------------------------------------------------------------------------------------
+
+## GIMBAL LOCK
+
+Common problem that arises while using euler rotations
+
+if you try to rotate simultaneously on x, y, z axes - You lose a degree of freedom
+
+we can setup a hierarchal order for rotations, 
+say y-> x-> z
+when rotation is about y axis, everything moves
+when rotation is about x axis, the x-z plane moves
+when rotation is about y axis, only the z axis moves
+
+if we continue to rotate x, at one point it will cause y and z to align thier axis of rotation
+both rotations along the z and y axis with rotate the object
+but rotation along the z axis wont rotate the x axis, but along y axis will.
+
+
+now, there is no axis to turn the arrow down
+
+Gimbal Lock! 
+
+the thing is, you can always find a way to put the object in any direction, it's mathematically possible
+
+but the object follows an arc, instead of a straight line
+
+this cause unexpected movement when it comes to animation, the solution is usually to use a different parenting structure
+say, y-> z-> x
+
+this prevents gimbal lock in this example. 
+
+
+# General pattern
+
+xyz xzy yxz yzx zyx zxy
+
+in each case, the gimble lock occurs when the middle axis is rotated too far (90 degrees)
+
+
+# 3D softwares always use Euler rotations, you can switch it to local view but behind the scenes the rotation happens in the original 
+euler rotations.
+
+# best order ? YXZ (for cameras, usually)
+
+# mitigating gimbal lock is usually done by using Quaternions
+
+--------------------------------------------------------------------------------------------------------------------------------------
