@@ -9,5 +9,6 @@ uniform mat4 u_ModelMatrix; // uniform model matrix
 // Entry point of program
 void main()
 {
-    color = vec4(v_vertexColors.r, v_vertexColors.g, v_vertexColors.b, 1.f);
+    vec4 newVertexColors = u_ModelMatrix * vec4(v_vertexColors, 1.0f);
+    color = vec4(newVertexColors.r, newVertexColors.g, newVertexColors.b, 1.f);
 }
