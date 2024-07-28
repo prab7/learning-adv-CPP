@@ -14,6 +14,8 @@ class Camera {
         // and return
         glm::mat4 GetViewMatrix() const;
 
+        void MouseLook(int mouseX, int mouseY);
+
         void MoveForward(float& speed);
         void MoveBackward(float& speed);
         void MoveLeft(float& speed);
@@ -24,6 +26,8 @@ class Camera {
         glm::vec3 _eye;
         glm::vec3 _viewDirection;
         glm::vec3 _up;
+
+        glm::vec2 _OldMousePosition;
 
 };
 

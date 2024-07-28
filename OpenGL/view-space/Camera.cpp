@@ -1,4 +1,7 @@
 #include "Camera.hpp"
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/rotate_vector.hpp>
 #include <iostream>
 
 Camera::Camera(){
@@ -17,26 +20,46 @@ Camera::Camera(){
 }
 
 glm::mat4 Camera::GetViewMatrix() const { 
-return glm::lookAt(Camera::_eye, Camera::_viewDirection, Camera::_up);
+
+    return glm::lookAt(_eye, _eye + _viewDirection, _up);
+
 }
+
+void Camera::MouseLook(int mouseX, int mouseY){
+
+    std::cout << "mouse: "<< mouseX << "," << mouseY << std::endl;
+
+    glm::vec2 currentMouse = glm::vec2(mouseX, mouseY);
+    
+    static bool firstLook = true;
+    if(firstLook){
+        _OldMousePosition = currentMouse;
+        firstLook = false;
+    }
+
+    glm::vec2 mouseDelta = _OldMousePosition - currentMouse;
+
+    _viewDirection = glm::rotate(_viewDirection, glm::radians(mouseDelta.x), _up);
+
+    _OldMousePosition = currentMouse;
+
+}
+
+
 
 void Camera::MoveForward(float& speed){
     
     // Simple but not yet correct
     // fixed in next tutorial
-
-    _eye.z += speed;
-    std::cout << "eye.z: " << _eye.z << std::endl;
+    
+    _eye += (_viewDirection*speed);
+    std::cout << "eye movin forward" << std::endl;
 }
 void Camera::MoveBackward(float& speed){
-    _eye.z -= speed;
-    std::cout << "eye.z: " << _eye.z << std::endl;
-};
+    _eye -= (_viewDirection*speed);
+    std::cout << "eye movin back" << std::endl;
+}
 void Camera::MoveLeft(float& speed){
-    _eye.x -= speed;
-    std::cout << "eye.x: " << _eye.x << std::endl;
-};
+}
 void Camera::MoveRight(float& speed){
-    _eye.x += speed;
-    std::cout << "eye.x: " << _eye.x << std::endl;
-};
+}

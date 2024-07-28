@@ -296,6 +296,9 @@ float theta = 0;
 /*-----------------------------------------------------------------*/
 void Input(){
 
+    static int mouseX = ScreenWidth/2;
+    static int mouseY = ScreenHeight/2;
+
     SDL_Event event;
 
     while(SDL_PollEvent(&event) != 0){
@@ -303,6 +306,10 @@ void Input(){
         if(event.type == SDL_QUIT){
             std::cout << "Goodbye!\n";
             quit = true;
+        } else if (event.type == SDL_MOUSEMOTION){
+            mouseX += event.motion.xrel;
+            mouseY += event.motion.yrel;
+            gCamera.MouseLook(mouseX, mouseY);
         }
     }
 
@@ -447,6 +454,9 @@ void Draw(){
 /*-------------------------------------------------------------------*/
 
 void MainLoop(){
+
+    SDL_WarpMouseInWindow(AppWindow, ScreenWidth/2, ScreenHeight/2);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 
     while(!quit){
         
