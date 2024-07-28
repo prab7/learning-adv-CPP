@@ -1,0 +1,45 @@
+
+whenever we create a type, have a function argument or create a function itself (return type and arguments)
+all have a specific static data type
+- we assign the actual type of information that's going to be a particular variable, function argument or return type of the function
+
+type safety is very necessary for longevity of codebase
+
+
+## type casting 
+sometimes we do need to "massage" or change the data a little to get the correct results
+
+
+# C-Style casting
+    - Runtime casting
+    - syntax: (type)rvalue;
+
+never compare different datatypes (ex. int > unsigned short) this is prone to compiler errors
+always use -Wall during compilation
+
+cpp feature: use cmp_compare functions instead.
+
+
+# CPP-Style casting
+
+cstyle casts in g++ compiler tries out all the casts below, in an order. 
+static>dynamic>const>reinterpret cast.
+
+static_cast
+- works with primitive types and Classes
+- converts between types using a combination of implicit and user-defined conversions.
+- less expensive than dynamic_cast
+- more dangerous
+- COMPILE TIME
+
+dynamic_cast
+- works with pointers
+- Safely converts pointers and references to classes up, down, and sideways along the inheritance hierarchy.
+- try to convert at RUNTIME, if fails returns a nullptr.
+- uses vtables and RTTI
+- More Expensive than static_cast
+- returns std::bad_cast with references
+- RUN TIME
+
+const_cast
+reinterpret_cast
